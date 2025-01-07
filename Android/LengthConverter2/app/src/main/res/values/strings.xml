@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">LengthConverter2</string>
+    <string name="cm_to_inch">cm to inch</string>
+    <string name="inch_to_cm">inch to cm</string>
+    <string name="cal">Calculate</string>
+</resources>
