@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">LengthConverter</string>
+<string name="cmtoinch">cm to inch</string>
+<string name="inchtocm">inch to cm</string>
+<string name="invalidinput">The input is invalid</string>
+</resources>
