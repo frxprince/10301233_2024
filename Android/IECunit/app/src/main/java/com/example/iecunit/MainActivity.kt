@@ -49,10 +49,10 @@ class MainActivity : AppCompatActivity() {
                 result:ActivityResult->
             if(result.resultCode== RESULT_OK){
                 outBytes= when(result.data?.getStringExtra("data")?:"No data"){
-                    "kiB"->inBytes* Math.pow(2.0,10.0)
-                    "MiB"->inBytes* Math.pow(2.0,20.0)
-                    "GiB"->inBytes* Math.pow(2.0,30.0)
-                    "TiB"->inBytes* Math.pow(2.0,40.0)
+                    "kiB"->inBytes/ Math.pow(2.0,10.0)
+                    "MiB"->inBytes/ Math.pow(2.0,20.0)
+                    "GiB"->inBytes/ Math.pow(2.0,30.0)
+                    "TiB"->inBytes/ Math.pow(2.0,40.0)
                     else-> 0.0
                 }
               Log.v("Result",outBytes.toString())
