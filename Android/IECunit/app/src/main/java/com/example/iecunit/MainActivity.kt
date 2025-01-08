@@ -27,9 +27,11 @@ class MainActivity : AppCompatActivity() {
             insets
         }
     val BtnInputUnit=findViewById<Button>(R.id.button)
+    val BtnOutputUnit=findViewById<Button>(R.id.button2)
     val txtInput=findViewById<EditText>(R.id.editTextNumberDecimal)
     val txtview=findViewById<TextView>(R.id.textView)
     var inBytes=0.0
+    var outBytes=0.0
  val InputUnitR=registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
      result:ActivityResult->
      if(result.resultCode== RESULT_OK){
@@ -41,10 +43,24 @@ class MainActivity : AppCompatActivity() {
         else-> 0.0
       }
       txtview.text=DecimalFormat("#,###,###").format(inBytes)+" bytes"
-      // Log.v("Result",result.data?.getStringExtra("data")?:"No data")
      }
  }
-
+ val OutputUnitR=registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+                result:ActivityResult->
+            if(result.resultCode== RESULT_OK){
+                outBytes= when(result.data?.getStringExtra("data")?:"No data"){
+                    "kiB"->inBytes* Math.pow(2.0,10.0)
+                    "MiB"->inBytes* Math.pow(2.0,20.0)
+                    "GiB"->inBytes* Math.pow(2.0,30.0)
+                    "TiB"->inBytes* Math.pow(2.0,40.0)
+                    else-> 0.0
+                }
+              Log.v("Result",outBytes.toString())
+            }
+        }
+BtnOutputUnit.setOnClickListener {val i=Intent(this,OutputUnit::class.java)
+OutputUnitR.launch(i)
+}
   BtnInputUnit.setOnClickListener {
    val i= Intent(this,InputUnit::class.java)
    InputUnitR.launch(i)
