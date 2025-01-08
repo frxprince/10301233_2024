@@ -8,7 +8,7 @@
     tools:context=".InputUnit">
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/bkB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -18,29 +18,29 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/bMB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="MB"
-        app:layout_constraintStart_toStartOf="@+id/button3"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintStart_toStartOf="@+id/bkB"
+        app:layout_constraintTop_toBottomOf="@+id/bkB" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/bGB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="GB"
-        app:layout_constraintStart_toStartOf="@+id/button4"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
+        app:layout_constraintStart_toStartOf="@+id/bMB"
+        app:layout_constraintTop_toBottomOf="@+id/bMB" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/bTB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="TB"
-        app:layout_constraintStart_toStartOf="@+id/button5"
-        app:layout_constraintTop_toBottomOf="@+id/button5" />
+        app:layout_constraintStart_toStartOf="@+id/bGB"
+        app:layout_constraintTop_toBottomOf="@+id/bGB" />
 </androidx.constraintlayout.widget.ConstraintLayout>
