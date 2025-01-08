@@ -56,6 +56,10 @@ class MainActivity : AppCompatActivity() {
                     else-> 0.0
                 }
               Log.v("Result",outBytes.toString())
+     val i=Intent(this,ShowResult::class.java)
+     i.putExtra("data",DecimalFormat("#,###,###").format(outBytes)+
+     result.data?.getStringExtra("data")?:"No data" )
+     startActivity(i)
             }
         }
 BtnOutputUnit.setOnClickListener {val i=Intent(this,OutputUnit::class.java)
