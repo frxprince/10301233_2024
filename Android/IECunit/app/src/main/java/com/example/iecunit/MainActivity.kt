@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        overridePendingTransition(R.anim.slide_down,R.anim.slide_down)
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -71,5 +72,10 @@ OutputUnitR.launch(i)
   }
 
 
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.slide_down,R.anim.slide_down)
     }
 }
