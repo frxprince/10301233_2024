@@ -5,10 +5,14 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.AlarmClock
+import android.provider.ContactsContract
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
@@ -25,11 +29,33 @@ class MainActivity : AppCompatActivity() {
 val btnWWW =findViewById<Button>(R.id.button)
 val btnMap = findViewById<Button>(R.id.button2)
 val btnAlarm= findViewById<Button>(R.id.button3)
-btnAlarm.setOnClickListener {
-    val i= Intent(AlarmClock.ACTION_SET_TIMER)
-    i.putExtra(AlarmClock.EXTRA_LENGTH,10)
+val btnContact=findViewById<Button>(R.id.button4)
+val btnCamera=findViewById<Button>(R.id.button5)
+btnCamera.setOnClickListener {
+    val i= Intent(MediaStore.ACTION_PICK_IMAGES)
     startActivity(i)
 }
+btnContact.setOnClickListener {
+    val i= Intent(Intent.ACTION_PICK)
+    i.type= ContactsContract.Contacts.CONTENT_TYPE
+    startActivity(i)
+}
+
+ if( ContextCompat.checkSelfPermission(this,"com.android.alarm.permission.SET_ALARM")!=
+     PackageManager.PERMISSION_GRANTED)
+ {
+  ActivityCompat.requestPermissions(this, arrayOf("com.android.alarm.permission.SET_ALARM"),
+      1234)
+ }else {
+     btnAlarm.setOnClickListener {
+         val i = Intent(AlarmClock.ACTION_SET_TIMER).apply {
+             putExtra(AlarmClock.EXTRA_MESSAGE,"Hello World")
+             putExtra(AlarmClock.EXTRA_SKIP_UI,true)
+             putExtra(AlarmClock.EXTRA_LENGTH, 10)
+         }
+         startActivity(i)
+     }
+ }
 
 
 
