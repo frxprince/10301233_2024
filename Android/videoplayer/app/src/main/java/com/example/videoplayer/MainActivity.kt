@@ -4,7 +4,9 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.widget.Button
+import android.widget.MediaController
 import android.widget.VideoView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -29,8 +31,19 @@ class MainActivity : AppCompatActivity() {
     val btnPause=findViewById<Button>(R.id.button5)
     val btnStop=findViewById<Button>(R.id.button6)
     val wVideoView=findViewById<VideoView>(R.id.videoView)
+    wVideoView.setMediaController(MediaController(this))
+
 if(ActivityCompat.checkSelfPermission(this,Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED ){
 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.INTERNET),12124)
+}
+        if(ActivityCompat.checkSelfPermission(this,Manifest.permission.READ_MEDIA_VIDEO) != PackageManager.PERMISSION_GRANTED ){
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_MEDIA_VIDEO),12124)
+        }
+        if(ActivityCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ){
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),12124)
+        }
+btnSDCARD.setOnClickListener {
+    wVideoView.setVideoURI(Uri.parse(Environment.getExternalStorageDirectory().path+"/DCIM/Loituma.3gp"))
 }
    btnInternet.setOnClickListener {
        wVideoView.setVideoURI(Uri.parse("http://www.drpaween.com/ohm/cs436/mv.mp4"))
@@ -41,6 +54,5 @@ wVideoView.setVideoURI(Uri.parse("android.resource://"+ packageName+"/"+R.raw.vi
 btnPlay.setOnClickListener { wVideoView.start() }
 btnPause.setOnClickListener { wVideoView.pause() }
 btnStop.setOnClickListener { wVideoView.stopPlayback() }
-
     }
 }
