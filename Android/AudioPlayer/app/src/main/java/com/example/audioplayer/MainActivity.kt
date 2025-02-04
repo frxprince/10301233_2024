@@ -46,8 +46,12 @@ if(ActivityCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STO
         }
 btnInternet.setOnClickListener {
  Mp=MediaPlayer()
- Mp.setDataSource(this, Uri.parse("http://www.drpaween.com/ohm/mp3test.mp3"))
- Mp.prepare()
+    try {
+        Mp.setDataSource(this, Uri.parse("http://112.121.150.133:9000/stream?type=http&nocache=160"))
+        Mp.prepare()
+    } catch (e: Exception) {
+        Mp= MediaPlayer.create(this,R.raw.greeting)
+    }
 }
 
 btnPause.setOnClickListener { Mp.pause() }
