@@ -3,6 +3,7 @@ package com.example.audioplayer
 import android.Manifest
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
@@ -31,11 +32,26 @@ class MainActivity : AppCompatActivity() {
         val btnPause=findViewById<Button>(R.id.button6)
         val btnStop=findViewById<Button>(R.id.button7)
     lateinit var Mp:MediaPlayer
+
 if(ActivityCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE)
     != PackageManager.PERMISSION_GRANTED){
  ActivityCompat.requestPermissions(this,
      arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),12321)
 }
+
+        if(ActivityCompat.checkSelfPermission(this,Manifest.permission.INTERNET)
+            != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.INTERNET),12321)
+        }
+btnInternet.setOnClickListener {
+ Mp=MediaPlayer()
+ Mp.setDataSource(this, Uri.parse("http://www.drpaween.com/ohm/mp3test.mp3"))
+ Mp.prepare()
+}
+
+btnPause.setOnClickListener { Mp.pause() }
+btnStop.setOnClickListener { Mp.stop() }
 btnSDCARD.setOnClickListener {
 Mp=MediaPlayer()
     Log.v("folder",Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).path)
