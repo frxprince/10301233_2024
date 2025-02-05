@@ -24,6 +24,14 @@ class MainActivity : AppCompatActivity() {
    val btnReadSD=findViewById<Button>(R.id.button4)
    val txtFname=findViewById<EditText>(R.id.editTextText)
    val txtData=findViewById<EditText>(R.id.editTextTextMultiLine)
+btnAssets.setOnClickListener {
+    val file=assets.open("textfile/pangram.txt")
+    val lines=file.bufferedReader(Charsets.UTF_8).readLines()
+    var msg=""
+    for(line in lines)
+        msg=msg+line+"\n"
+    txtData.setText(msg)
+}
 
   btnResource.setOnClickListener {
       val file=resources.openRawResource(R.raw.genesis01)
