@@ -8,6 +8,7 @@ import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.widget.Button
 import android.widget.EditText
@@ -18,6 +19,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
@@ -46,11 +50,21 @@ class MainActivity : AppCompatActivity() {
         canvas.drawBitmap(image!!,0f,0f,paint)
         var now= Calendar.getInstance().time.toString()
         canvas.drawText("$now",image!!.width-100f,image!!.height-10f,paint)
-
-
-        imageView.setImageBitmap(image)
+     imageView.setImageBitmap(image)
         }
     }
+btn.setOnClickListener {
+ val file= File(Environment.getExternalStorageDirectory().absolutePath+"/"+
+ Environment.DIRECTORY_PICTURES+"/"+ txt.text.toString())
+ file.createNewFile()
+ val bos=ByteArrayOutputStream()
+ image!!.compress(Bitmap.CompressFormat.PNG,99,bos)
+ val fos=FileOutputStream(file)
+ fos.write(bos.toByteArray())
+ fos.flush(); fos.close()
+
+}
+
 
         imageView.setOnClickListener {
             val i= Intent(MediaStore.ACTION_IMAGE_CAPTURE)
