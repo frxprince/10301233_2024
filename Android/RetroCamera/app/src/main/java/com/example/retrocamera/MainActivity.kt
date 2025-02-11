@@ -2,6 +2,11 @@ package com.example.retrocamera
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffXfermode
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Button
@@ -32,6 +37,15 @@ class MainActivity : AppCompatActivity() {
         result:ActivityResult-> if(result.resultCode== RESULT_OK){
          if(image !=null)image?.recycle()
         image=result.data!!.getParcelableExtra<Bitmap>("data")!!.copy(Bitmap.Config.ARGB_8888,true)
+        var canvas= Canvas(image!!)
+        var paint= Paint()
+        paint.setColor(Color.RED)
+        paint.textSize=8.0f
+        paint.setXfermode((PorterDuffXfermode(PorterDuff.Mode.SRC_OVER)))
+        canvas.drawBitmap(image!!,0f,0f,paint)
+        canvas.drawText("Hello World",2f,50f,paint)
+
+
         imageView.setImageBitmap(image)
         }
     }
