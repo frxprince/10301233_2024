@@ -58,13 +58,13 @@ btn.setOnClickListener {
  Environment.DIRECTORY_PICTURES+"/"+ txt.text.toString())
  file.createNewFile()
  val bos=ByteArrayOutputStream()
- image!!.compress(Bitmap.CompressFormat.PNG,99,bos)
- val fos=FileOutputStream(file)
- fos.write(bos.toByteArray())
- fos.flush(); fos.close()
-
+if(image !=null) {
+    image!!.compress(Bitmap.CompressFormat.PNG, 99, bos)
+    val fos = FileOutputStream(file)
+    fos.write(bos.toByteArray())
+    fos.flush(); fos.close()
 }
-
+}
 
         imageView.setOnClickListener {
             val i= Intent(MediaStore.ACTION_IMAGE_CAPTURE)
