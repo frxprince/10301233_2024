@@ -18,6 +18,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,11 +40,12 @@ class MainActivity : AppCompatActivity() {
         image=result.data!!.getParcelableExtra<Bitmap>("data")!!.copy(Bitmap.Config.ARGB_8888,true)
         var canvas= Canvas(image!!)
         var paint= Paint()
-        paint.setColor(Color.RED)
+        paint.setColor(Color.MAGENTA)
         paint.textSize=8.0f
         paint.setXfermode((PorterDuffXfermode(PorterDuff.Mode.SRC_OVER)))
         canvas.drawBitmap(image!!,0f,0f,paint)
-        canvas.drawText("Hello World",2f,50f,paint)
+        var now= Calendar.getInstance().time.toString()
+        canvas.drawText("$now",image!!.width-100f,image!!.height-10f,paint)
 
 
         imageView.setImageBitmap(image)
