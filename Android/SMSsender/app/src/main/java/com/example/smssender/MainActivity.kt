@@ -48,8 +48,22 @@ val sent_receiver=object:SMSSent(){
      txtLog.text="${txtLog.text} \n  $msg"
     }
 }
-registerReceiver(sent_receiver, IntentFilter("SMS_SENT"), RECEIVER_EXPORTED)
+val delivered_receiver=object:SMSDelivered(){
+    override fun show(msg: String) {
+        txtLog.text="${txtLog.text} \n  $msg"
     }
+}
+registerReceiver(sent_receiver, IntentFilter("SMS_SENT"), RECEIVER_EXPORTED)
+registerReceiver(delivered_receiver, IntentFilter("SMS_DELIVERED"), RECEIVER_EXPORTED)
+    }
+abstract class SMSDelivered:BroadcastReceiver(){
+    override fun onReceive(p0: Context?, p1: Intent?)
+    {  if(resultCode== RESULT_OK){show("SMS was delivered")}else{show("Fail")}
+    }
+    abstract fun show(msg:String)
+}
+
+
 abstract class SMSSent:BroadcastReceiver(){
     override fun onReceive(p0: Context?, p1: Intent?) {
       when(resultCode){
