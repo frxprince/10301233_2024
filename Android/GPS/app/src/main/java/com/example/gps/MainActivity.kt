@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import android.location.OnNmeaMessageListener
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -12,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class MainActivity : AppCompatActivity(),LocationListener {
+class MainActivity : AppCompatActivity(),LocationListener,OnNmeaMessageListener {
   lateinit var txt1:TextView
   lateinit var txt2:TextView
   lateinit var GPS:LocationManager
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity(),LocationListener {
         if(checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED)
             requestPermissions(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),1234)
      GPS=getSystemService(LOCATION_SERVICE) as LocationManager
-
+     GPS.addNmeaListener(this)
     }
 
     override fun onResume() {
@@ -47,5 +48,10 @@ class MainActivity : AppCompatActivity(),LocationListener {
 
     override fun onLocationChanged(p0: Location) {
       txt1.text="Lat:${p0.latitude} Long:${p0.longitude} Alt:${p0.altitude} \n Clock:${p0.time} Bearing:${p0.bearing}"
+    }
+
+    override fun onNmeaMessage(p0: String?, p1: Long) {
+    txt2.text="$p1 : $p0 \n" + txt2.text
+
     }
 }
